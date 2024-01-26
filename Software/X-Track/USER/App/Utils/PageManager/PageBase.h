@@ -24,6 +24,7 @@
 #define __PAGE_BASE_H
 
 #include "lvgl/lvgl.h"
+#include "../Rotation/quaternion.h"
 
 /* Generate stash area data */
 #define PAGE_STASH_MAKE(data) {&(data), sizeof(data)}
@@ -39,6 +40,8 @@ class PageManager;
 
 class PageBase
 {
+private:
+    float x,y; // _root position relative to screen _base
 public:
 
     /* Page state */
@@ -128,6 +131,9 @@ public:
     /* Page unload end */
     virtual void onViewDidUnload() {}
 
+    /* update page position according to Quaternion from IMU*/
+    void updatePosition(Quaternion& q);
+    
     /* Set whether to manually manage the cache */
     void SetCustomCacheEnable(bool en);
 

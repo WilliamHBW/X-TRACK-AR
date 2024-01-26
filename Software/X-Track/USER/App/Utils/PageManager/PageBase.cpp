@@ -23,6 +23,12 @@
 #include "PageBase.h"
 #include "PM_Log.h"
 
+void PageBase::updatePosition(Quaternion& q)
+{
+    // invert quaternion q from IMU
+    
+}
+
 void PageBase::SetCustomCacheEnable(bool en)
 {
     PM_LOG_INFO("Page(%s) %s = %d", _Name, __func__, en);
