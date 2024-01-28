@@ -125,6 +125,7 @@ bool PageManager::Install(const char* className, const char* appName)
         return false;
     }
 
+    base->_base = nullptr;
     base->_root = nullptr;
     base->_ID = 0;
     base->_Manager = nullptr;

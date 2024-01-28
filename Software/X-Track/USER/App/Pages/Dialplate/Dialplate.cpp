@@ -97,6 +97,9 @@ void Dialplate::AttachEvent(lv_obj_t* obj)
 
 void Dialplate::Update()
 {
+    int randx = generateRandomNumber();
+    int randy = generateRandomNumber();
+    Root_RotateIMU(randx,randy);
     char buf[16];
     lv_label_set_text_fmt(View.ui.topInfo.labelSpeed, "%02d", (int)Model.GetSpeed());
 

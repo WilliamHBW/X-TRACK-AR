@@ -83,6 +83,9 @@ void Template::AttachEvent(lv_obj_t* obj)
 
 void Template::Update()
 {
+    int randx = generateRandomNumber();
+    int randy = generateRandomNumber();
+    Root_RotateIMU(randx,randy);
     lv_label_set_text_fmt(View.ui.labelTick, "tick = %d save = %d", Model.GetData(), Model.TickSave);
 }
 

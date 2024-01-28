@@ -24,7 +24,7 @@
 #define __PAGE_BASE_H
 
 #include "lvgl/lvgl.h"
-#include "../Rotation/quaternion.h"
+#include <random>
 
 /* Generate stash area data */
 #define PAGE_STASH_MAKE(data) {&(data), sizeof(data)}
@@ -40,8 +40,6 @@ class PageManager;
 
 class PageBase
 {
-private:
-    float x,y; // _root position relative to screen _base
 public:
 
     /* Page state */
@@ -74,7 +72,8 @@ public:
     } AnimAttr_t;
 
 public:
-    lv_obj_t* _root;       // UI root node
+    lv_obj_t* _base;       // UI base node
+    lv_obj_t* _root;       // UI root node, will rotate according to the base
     PageManager* _Manager; // Page manager pointer
     const char* _Name;     // Page name
     uint16_t _ID;          // Page ID
@@ -131,8 +130,8 @@ public:
     /* Page unload end */
     virtual void onViewDidUnload() {}
 
-    /* update page position according to Quaternion from IMU*/
-    void updatePosition(Quaternion& q);
+    void Root_RotateIMU(int dx, int dy);
+    int generateRandomNumber();
     
     /* Set whether to manually manage the cache */
     void SetCustomCacheEnable(bool en);

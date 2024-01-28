@@ -23,10 +23,16 @@
 #include "PageBase.h"
 #include "PM_Log.h"
 
-void PageBase::updatePosition(Quaternion& q)
+int PageBase::generateRandomNumber()
 {
-    // invert quaternion q from IMU
-    
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(-50, 50);
+    return dis(gen);
+}
+
+void PageBase::Root_RotateIMU(int dx, int dy) {
+    lv_obj_set_pos(_root, dx, dy);
 }
 
 void PageBase::SetCustomCacheEnable(bool en)

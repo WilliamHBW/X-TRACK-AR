@@ -85,6 +85,9 @@ void SystemInfos::Update()
 {
     char buf[64];
 
+    int randx = generateRandomNumber();
+    int randy = generateRandomNumber();
+    Root_RotateIMU(randx,randy);
     /* Sport */
     float trip;
     float maxSpd;

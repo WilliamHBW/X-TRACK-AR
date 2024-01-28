@@ -90,7 +90,7 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
 {
     PM_LOG_INFO("Page(%s) state load", base->_Name);
 
-    if (base->_root != nullptr)
+    if (base->_base != nullptr)
     {
         PM_LOG_ERROR("Page(%s) root must be nullptr", base->_Name);
     }
@@ -105,7 +105,9 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
         lv_obj_add_style(root_obj, _RootDefaultStyle, LV_PART_MAIN);
     }
 
-    base->_root = root_obj;
+    base->_base = root_obj;
+    base->_root = lv_obj_create(base->_base);
+    lv_obj_set_size(base->_root, LV_HOR_RES, LV_VER_RES);
     base->onViewLoad();
 
     if (GetIsOverAnim(GetCurrentLoadAnimType()))
@@ -119,7 +121,7 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
             {
                 if (animAttr.dragDir != ROOT_DRAG_DIR_NONE)
                 {
-                    RootEnableDrag(base->_root);
+                    RootEnableDrag(base->_base);
                 }
             }
         }
@@ -150,7 +152,7 @@ PageBase::State_t PageManager::StateWillAppearExecute(PageBase* base)
 {
     PM_LOG_INFO("Page(%s) state will appear", base->_Name);
     base->onViewWillAppear();
-    lv_obj_clear_flag(base->_root, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(base->_base, LV_OBJ_FLAG_HIDDEN);
     SwitchAnimCreate(base);
     return PageBase::PAGE_STATE_DID_APPEAR;
 }
@@ -188,7 +190,7 @@ PageBase::State_t PageManager::StateWillDisappearExecute(PageBase* base)
 PageBase::State_t PageManager::StateDidDisappearExecute(PageBase* base)
 {
     PM_LOG_INFO("Page(%s) state did disappear", base->_Name);
-    lv_obj_add_flag(base->_root, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(base->_base, LV_OBJ_FLAG_HIDDEN);
     base->onViewDidDisappear();
     if (base->priv.IsCached)
     {
@@ -209,7 +211,7 @@ PageBase::State_t PageManager::StateDidDisappearExecute(PageBase* base)
 PageBase::State_t PageManager::StateUnloadExecute(PageBase* base)
 {
     PM_LOG_INFO("Page(%s) state unload", base->_Name);
-    if (base->_root == nullptr)
+    if (base->_base == nullptr)
     {
         PM_LOG_WARN("Page is loaded!");
         goto Exit;
@@ -225,8 +227,8 @@ PageBase::State_t PageManager::StateUnloadExecute(PageBase* base)
     }
 
     /* Delete after the end of the root animation life cycle */
-    lv_obj_del_async(base->_root);
-    base->_root = nullptr;
+    lv_obj_del_async(base->_base);
+    base->_base = nullptr;
     base->priv.IsCached = false;
     base->onViewDidUnload();
 

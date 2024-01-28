@@ -262,14 +262,14 @@ bool PageManager::SwitchTo(PageBase* newNode, bool isEnterAct, const PageBase::S
     if (_AnimState.IsEntering)
     {
         PM_LOG_INFO("Page ENTER is detect, move Page(%s) to foreground", _PageCurrent->_Name);
-        if (_PagePrev)lv_obj_move_foreground(_PagePrev->_root);
-        lv_obj_move_foreground(_PageCurrent->_root);
+        if (_PagePrev)lv_obj_move_foreground(_PagePrev->_base);
+        lv_obj_move_foreground(_PageCurrent->_base);
     }
     else
     {
         PM_LOG_INFO("Page EXIT is detect, move Page(%s) to foreground", GetPagePrevName());
-        lv_obj_move_foreground(_PageCurrent->_root);
-        if (_PagePrev)lv_obj_move_foreground(_PagePrev->_root);
+        lv_obj_move_foreground(_PageCurrent->_base);
+        if (_PagePrev)lv_obj_move_foreground(_PagePrev->_base);
     }
     return true;
 }
@@ -417,7 +417,7 @@ void PageManager::SwitchAnimCreate(PageBase* base)
     lv_anim_t a;
     AnimDefaultInit(&a);
     lv_anim_set_user_data(&a, base);
-    lv_anim_set_var(&a, base->_root);
+    lv_anim_set_var(&a, base->_base);
     lv_anim_set_ready_cb(&a, onSwitchAnimFinish);
     lv_anim_set_exec_cb(&a, animAttr.setter);
 
@@ -425,7 +425,7 @@ void PageManager::SwitchAnimCreate(PageBase* base)
 
     if (animAttr.getter)
     {
-        start = animAttr.getter(base->_root);
+        start = animAttr.getter(base->_base);
     }
 
     if (_AnimState.IsEntering)
