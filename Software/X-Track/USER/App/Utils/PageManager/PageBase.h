@@ -24,6 +24,7 @@
 #define __PAGE_BASE_H
 
 #include "lvgl/lvgl.h"
+#include "Utils/Rotation/quaternion.h"
 #include <random>
 
 /* Generate stash area data */
@@ -129,7 +130,10 @@ public:
 
     /* Page unload end */
     virtual void onViewDidUnload() {}
-
+    
+    /* Update page root according to IMU info*/
+    virtual Quaternion Root_UpdateIMU(bool mag_enable) {};
+    void Root_RotateIMU(Quaternion& q);
     void Root_RotateIMU(int dx, int dy);
     int generateRandomNumber();
     

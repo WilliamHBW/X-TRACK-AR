@@ -97,9 +97,11 @@ void Dialplate::AttachEvent(lv_obj_t* obj)
 
 void Dialplate::Update()
 {
-    int randx = generateRandomNumber();
-    int randy = generateRandomNumber();
-    Root_RotateIMU(randx,randy);
+    //int randx = generateRandomNumber();
+    //int randy = generateRandomNumber();
+    //Root_RotateIMU(randx,randy);
+    Quaternion q = Root_UpdateIMU(false);
+    Root_RotateIMU(q);
     char buf[16];
     lv_label_set_text_fmt(View.ui.topInfo.labelSpeed, "%02d", (int)Model.GetSpeed());
 
@@ -235,4 +237,44 @@ void Dialplate::onEvent(lv_event_t* event)
             instance->onRecord(true);
         }
     }
+}
+
+Quaternion Dialplate::Root_UpdateIMU(bool mag_enable=false)
+{
+    uint32_t len = 32;
+    char* info = new char[len];
+    int* mag_x = nullptr;
+    int* mag_y = nullptr;
+    int* mag_z = nullptr;
+    float* mag_dir = nullptr;
+    int imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz;
+
+    // get info from IMU and MAG
+    Model.GetIMUInfo(nullptr, info, len);
+    if(mag_enable)
+    {
+        Model.GetMAGInfo(mag_dir, mag_x, mag_y, mag_z);
+    }
+    sscanf(info, "%d\n%d\n%d\n%d\n%d\n%d", &imu_ax, &imu_ay, &imu_az, &imu_gx, &imu_gy, &imu_gz);
+    
+    // call MadgwickAHRS to get the quarternion
+    imu_ax = 0;
+    imu_ay = 0;
+    imu_az = 0;
+    imu_gx = 0;
+    imu_gy = 0;
+    imu_gz = 0;
+    
+    if(mag_enable)
+    {
+        MadgwickAHRSupdate(imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz, *mag_x, *mag_y, *mag_z);
+    }
+    else
+    {
+        MadgwickAHRSupdateIMU(imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz);
+
+    }
+
+    Quaternion q(q0, q1, q2, q3);
+    return q;
 }

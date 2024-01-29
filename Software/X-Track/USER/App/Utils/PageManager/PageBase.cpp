@@ -35,6 +35,13 @@ void PageBase::Root_RotateIMU(int dx, int dy) {
     lv_obj_set_pos(_root, dx, dy);
 }
 
+void PageBase::Root_RotateIMU(Quaternion& q) {
+    int dx, dy;
+    dx = -50;
+    dy = 0;
+    Root_RotateIMU(dx, dy);
+}
+
 void PageBase::SetCustomCacheEnable(bool en)
 {
     PM_LOG_INFO("Page(%s) %s = %d", _Name, __func__, en);

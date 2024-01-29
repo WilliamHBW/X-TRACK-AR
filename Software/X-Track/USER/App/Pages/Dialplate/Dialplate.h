@@ -22,6 +22,7 @@ public:
     virtual void onViewDidDisappear();
     virtual void onViewUnload();
     virtual void onViewDidUnload();
+    virtual Quaternion Root_UpdateIMU(bool mag_enable=false);
 
 private:
     typedef enum

@@ -110,3 +110,42 @@ void DialplateModel::SetStatusBarStyle(DataProc::StatusBar_Style_t style)
 
     account->Notify("StatusBar", &info, sizeof(info));
 }
+
+void DialplateModel::GetMAGInfo(
+    float* dir,
+    int* x,
+    int* y,
+    int* z
+)
+{
+    HAL::MAG_Info_t mag = { 0 };
+
+    account->Pull("MAG", &mag, sizeof(mag));
+
+    *dir = 0;
+    *x = mag.x;
+    *y = mag.y;
+    *z = mag.z;
+}
+
+void DialplateModel::GetIMUInfo(
+    int* step,
+    char* info, uint32_t len
+)
+{
+    HAL::IMU_Info_t imu = { 0 };
+
+    account->Pull("IMU", &imu, sizeof(imu));
+    *step = imu.steps;
+    snprintf(
+        info,
+        len,
+        "%d\n%d\n%d\n%d\n%d\n%d",
+        imu.ax,
+        imu.ay,
+        imu.az,
+        imu.gx,
+        imu.gy,
+        imu.gz
+    );
+}

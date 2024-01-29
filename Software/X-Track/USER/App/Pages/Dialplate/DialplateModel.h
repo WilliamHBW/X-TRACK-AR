@@ -37,6 +37,18 @@ public:
         return sportStatusInfo.speedAvgKph;
     }
 
+    void GetMAGInfo(
+        float* dir,
+        int* x,
+        int* y,
+        int* z
+    );
+
+    void GetIMUInfo(
+        int* step,
+        char* info, uint32_t len
+    );
+
     void RecorderCommand(RecCmd_t cmd);
     void PlayMusic(const char* music);
     void SetStatusBarStyle(DataProc::StatusBar_Style_t style);
