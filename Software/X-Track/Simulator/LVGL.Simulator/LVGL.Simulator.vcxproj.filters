@@ -418,6 +418,9 @@
     <Filter Include="lvgl\examples\anim">
       <UniqueIdentifier>{effdcfb6-96d7-4c48-b546-18ac6c30c910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Utils\Rotation">
+      <UniqueIdentifier>{cfc95b34-fd85-4a2d-a411-68247eac1a3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lvgl\examples\get_started\lv_example_get_started.h">
@@ -1037,6 +1040,12 @@
     </ClInclude>
     <ClInclude Include="lvgl\examples\anim\lv_example_anim.h">
       <Filter>lvgl\examples\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\USER\App\Utils\Rotation\MadgwickAHRS.h">
+      <Filter>App\Utils\Rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\USER\App\Utils\Rotation\quaternion.h">
+      <Filter>App\Utils\Rotation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2107,6 +2116,12 @@
     </ClCompile>
     <ClCompile Include="lvgl\examples\anim\lv_example_anim_timeline_1.c">
       <Filter>lvgl\examples\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\USER\App\Utils\Rotation\MadgwickAHRS.c">
+      <Filter>App\Utils\Rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\USER\App\Utils\Rotation\quaternion.cpp">
+      <Filter>App\Utils\Rotation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

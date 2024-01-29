@@ -9,6 +9,8 @@ void DialplateModel::Init()
     account->Subscribe("Recorder");
     account->Subscribe("StatusBar");
     account->Subscribe("GPS");
+    account->Subscribe("MAG");
+    account->Subscribe("IMU");
     account->Subscribe("MusicPlayer");
     account->SetEventCallback(onEvent);
 }

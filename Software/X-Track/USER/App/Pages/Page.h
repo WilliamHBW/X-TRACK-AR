@@ -29,6 +29,8 @@
 #include "Utils/lv_ext/lv_anim_timeline_wrapper.h"
 #include "Resource/ResourcePool.h"
 #include "StatusBar/StatusBar.h"
+extern "C" {
 #include "Utils/Rotation/MadgwickAHRS.h"
+}
 
 #endif

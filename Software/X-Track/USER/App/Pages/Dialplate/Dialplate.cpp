@@ -100,7 +100,7 @@ void Dialplate::Update()
     //int randx = generateRandomNumber();
     //int randy = generateRandomNumber();
     //Root_RotateIMU(randx,randy);
-    Quaternion q = Root_UpdateIMU(false);
+    Quaternion* q = Root_UpdateIMU(false);
     Root_RotateIMU(q);
     char buf[16];
     lv_label_set_text_fmt(View.ui.topInfo.labelSpeed, "%02d", (int)Model.GetSpeed());
@@ -239,8 +239,9 @@ void Dialplate::onEvent(lv_event_t* event)
     }
 }
 
-Quaternion Dialplate::Root_UpdateIMU(bool mag_enable=false)
+Quaternion* Dialplate::Root_UpdateIMU(bool mag_enable)
 {
+    int* step = new int;
     uint32_t len = 32;
     char* info = new char[len];
     int* mag_x = nullptr;
@@ -250,7 +251,7 @@ Quaternion Dialplate::Root_UpdateIMU(bool mag_enable=false)
     int imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz;
 
     // get info from IMU and MAG
-    Model.GetIMUInfo(nullptr, info, len);
+    Model.GetIMUInfo(step, info, len);
     if(mag_enable)
     {
         Model.GetMAGInfo(mag_dir, mag_x, mag_y, mag_z);
@@ -275,6 +276,7 @@ Quaternion Dialplate::Root_UpdateIMU(bool mag_enable=false)
 
     }
 
-    Quaternion q(q0, q1, q2, q3);
+    Quaternion* q = new Quaternion(madg_q0, madg_q1, madg_q2, madg_q3);
+    //Quaternion q(0,0,0,0);
     return q;
 }

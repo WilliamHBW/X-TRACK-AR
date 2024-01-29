@@ -132,8 +132,8 @@ public:
     virtual void onViewDidUnload() {}
     
     /* Update page root according to IMU info*/
-    virtual Quaternion Root_UpdateIMU(bool mag_enable) {};
-    void Root_RotateIMU(Quaternion& q);
+    virtual Quaternion* Root_UpdateIMU(bool mag_enable = false) { return nullptr;};
+    void Root_RotateIMU(Quaternion* q);
     void Root_RotateIMU(int dx, int dy);
     int generateRandomNumber();
     
