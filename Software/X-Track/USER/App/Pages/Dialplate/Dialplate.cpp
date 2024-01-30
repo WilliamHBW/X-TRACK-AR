@@ -21,6 +21,8 @@ void Dialplate::onViewLoad()
 {
     Model.Init();
     View.Create(_root);
+    x = 0;
+    y = 0;
 
     AttachEvent(View.ui.btnCont.btnMap);
     AttachEvent(View.ui.btnCont.btnRec);

@@ -9,8 +9,9 @@ class Quaternion
         Quaternion(float x, float y, float z, float w);
         Quaternion(const Quaternion& other);
 
-        float* vec2world(const float*& x); // Convert vector from local to world
-        float* vec2local(const float*& x); // Convert vector from world to local
+        float* vec2world(const float* x); // Convert vector from local to world
+        float* vec2local(const float* x); // Convert vector from world to local
+        float* rotate(const float* x);
         float** Rbw(); // Get rotation matrix from body to world
         float** Rwb(); // Get rotation matrix from world to body
 };

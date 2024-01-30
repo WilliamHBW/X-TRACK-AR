@@ -24,7 +24,7 @@ Quaternion::Quaternion(const Quaternion& other)
     q[3] = other.q[3];
 }
 
-float* Quaternion::vec2world(const float*& x)
+float* Quaternion::vec2world(const float* x)
 {
     // Rotate (3x1 vector) by quaternion from body to world.
     // INPUTS:
@@ -41,7 +41,7 @@ float* Quaternion::vec2world(const float*& x)
     return y;
 }
 
-float* Quaternion::vec2local(const float*& x)
+float* Quaternion::vec2local(const float* x)
 {
     // Rotate (3x1 vector) by quaternion from world to body.
     // INPUTS:
@@ -118,4 +118,11 @@ float** Quaternion::Rwb()
     R[2][1] = 2*(q2*q3 - q0*q1);
     R[2][2] = q0*q0 - q1*q1 - q2*q2 + q3*q3;
     return R;
+}
+
+float* Quaternion::rotate(const float* x)
+{
+    float* y = vec2world(x);
+    float* z = vec2local(y);
+    return z;
 }

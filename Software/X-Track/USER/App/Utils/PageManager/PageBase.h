@@ -41,6 +41,8 @@ class PageManager;
 
 class PageBase
 {
+protected:
+    float x, y; // coordinate of _root, relative to _base
 public:
 
     /* Page state */

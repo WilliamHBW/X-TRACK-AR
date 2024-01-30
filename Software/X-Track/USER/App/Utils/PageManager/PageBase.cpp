@@ -36,9 +36,15 @@ void PageBase::Root_RotateIMU(int dx, int dy) {
 }
 
 void PageBase::Root_RotateIMU(Quaternion* q) {
+    float z = sqrt(CONFIG_FOCAL_LENGTH * CONFIG_FOCAL_LENGTH - x * x - y * y);
+    float vec[3] = {x,y,z};
+    float vec_new[3];
+    vec_new = q->rotate(vec)
     int dx, dy;
-    dx = -50;
-    dy = 0;
+    dx = vec_new[0] - vec[0];
+    dy = vec_new[1] - vec[1];
+    x = vec_new[0];
+    y = vec_new[1];
     Root_RotateIMU(dx, dy);
 }
 

@@ -80,4 +80,7 @@
 #  define CONFIG_MONKEY_INPUT_RANGE_MAX       5
 #endif
 
+// AR optical related configuration
+#define CONFIG_FOCAL_LENGTH                   3.6f // m
+#define CONFIG_FOV                            60  // degree
 #endif
