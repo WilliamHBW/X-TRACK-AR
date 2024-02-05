@@ -148,8 +148,10 @@
     <ClInclude Include="..\..\USER\App\Utils\PageManager\PM_Log.h" />
     <ClInclude Include="..\..\USER\App\Utils\PointContainer\PointContainer.h" />
     <ClInclude Include="..\..\USER\App\Utils\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="..\..\USER\App\Utils\Rotation\ArduinoIMU.h" />
     <ClInclude Include="..\..\USER\App\Utils\Rotation\MadgwickAHRS.h" />
     <ClInclude Include="..\..\USER\App\Utils\Rotation\quaternion.h" />
+    <ClInclude Include="..\..\USER\App\Utils\Rotation\Serial.h" />
     <ClInclude Include="..\..\USER\App\Utils\StorageService\StorageService.h" />
     <ClInclude Include="..\..\USER\App\Utils\Stream\Print.h" />
     <ClInclude Include="..\..\USER\App\Utils\Stream\Printable.h" />
@@ -382,6 +384,7 @@
     <ClCompile Include="..\..\USER\App\Utils\PageManager\PM_Anim.cpp" />
     <ClCompile Include="..\..\USER\App\Utils\PointContainer\PointContainer.cpp" />
     <ClCompile Include="..\..\USER\App\Utils\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="..\..\USER\App\Utils\Rotation\ArduinoIMU.cpp" />
     <ClCompile Include="..\..\USER\App\Utils\Rotation\MadgwickAHRS.c" />
     <ClCompile Include="..\..\USER\App\Utils\Rotation\quaternion.cpp" />
     <ClCompile Include="..\..\USER\App\Utils\StorageService\StorageService.cpp" />

@@ -149,9 +149,6 @@ void LiveMap::AttachEvent(lv_obj_t* obj)
 
 void LiveMap::Update()
 {
-    int randx = generateRandomNumber();
-    int randy = generateRandomNumber();
-    Root_RotateIMU(randx,randy);
     if (lv_tick_elaps(priv.lastMapUpdateTime) >= CONFIG_GPS_REFR_PERIOD)
     {
         CheckPosition();

@@ -23,6 +23,7 @@ void Dialplate::onViewLoad()
     View.Create(_root);
     x = 0;
     y = 0;
+    arduino_imu = new ArduinoIMU();
 
     AttachEvent(View.ui.btnCont.btnMap);
     AttachEvent(View.ui.btnCont.btnRec);
@@ -64,7 +65,7 @@ void Dialplate::onViewWillAppear()
 
 void Dialplate::onViewDidAppear()
 {
-    timer = lv_timer_create(onTimerUpdate, 1000, this);
+    timer = lv_timer_create(onTimerUpdate, 100, this);
 }
 
 void Dialplate::onViewWillDisappear()
@@ -253,7 +254,9 @@ Quaternion* Dialplate::Root_UpdateIMU(bool mag_enable)
     int imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz;
 
     // get info from IMU and MAG
-    Model.GetIMUInfo(step, info, len);
+    // Model.GetIMUInfo(step, info, len);
+    // For test, instead of getting data from Model.GetIMUInfo, get the IMU INFO from the IMU directly
+    arduino_imu->GetIMUInfo(info, len);
     if(mag_enable)
     {
         Model.GetMAGInfo(mag_dir, mag_x, mag_y, mag_z);
@@ -261,13 +264,6 @@ Quaternion* Dialplate::Root_UpdateIMU(bool mag_enable)
     sscanf(info, "%d\n%d\n%d\n%d\n%d\n%d", &imu_ax, &imu_ay, &imu_az, &imu_gx, &imu_gy, &imu_gz);
     
     // call MadgwickAHRS to get the quarternion
-    imu_ax = 0;
-    imu_ay = 0;
-    imu_az = 0;
-    imu_gx = 0;
-    imu_gy = 0;
-    imu_gz = 0;
-    
     if(mag_enable)
     {
         MadgwickAHRSupdate(imu_ax, imu_ay, imu_az, imu_gx, imu_gy, imu_gz, *mag_x, *mag_y, *mag_z);

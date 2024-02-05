@@ -3,6 +3,7 @@
 
 #include "DialplateView.h"
 #include "DialplateModel.h"
+#include "Utils/Rotation/ArduinoIMU.h"
 
 namespace Page
 {
@@ -48,6 +49,7 @@ private:
     lv_timer_t* timer;
     RecordState_t recState;
     lv_obj_t* lastFocus;
+    ArduinoIMU* arduino_imu;
 };
 
 }

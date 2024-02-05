@@ -22,6 +22,7 @@
  */
 #include "PageBase.h"
 #include "PM_Log.h"
+#include "Config/Config.h"
 
 int PageBase::generateRandomNumber()
 {
@@ -36,11 +37,12 @@ void PageBase::Root_RotateIMU(int dx, int dy) {
 }
 
 void PageBase::Root_RotateIMU(Quaternion* q) {
+    int dx, dy;
+
     float z = sqrt(CONFIG_FOCAL_LENGTH * CONFIG_FOCAL_LENGTH - x * x - y * y);
     float vec[3] = {x,y,z};
-    float vec_new[3];
-    vec_new = q->rotate(vec)
-    int dx, dy;
+    float* vec_new = new float[3];
+    vec_new = q->rotate(vec);
     dx = vec_new[0] - vec[0];
     dy = vec_new[1] - vec[1];
     x = vec_new[0];
